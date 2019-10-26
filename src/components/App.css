@@ -1,0 +1,99 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 10vmin;
+}
+
+.form-control:focus,
+button:focus {
+  outline: none !important;
+  border: 1px solid #09d3ac !important;
+  box-shadow: none !important;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  color: #09d3ac;
+}
+
+ul li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 5px;
+  font-size: 0.7em;
+}
+ul li a {
+  color: #fff;
+  transition: color 0.4s ease-in-out;
+}
+
+select,
+button,
+input,
+a {
+  outline: none;
+}
+
+.text-danger {
+  color: red;
+}
+
+button {
+  min-width: 100px;
+  margin: 12px 5px !important;
+  font-size: 1.2em;
+  background: #333 !important;
+  color: #fff !important;
+  border: 1px solid #777 !important;
+}
+button:hover {
+  color: #09d3ac !important;
+}
+
+.img-user {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.table thead tr td {
+  font-weight: bold !important;
+}
+.table td,
+.table th {
+  vertical-align: middle !important;
+}
+
+.img-profile {
+  border-radius: 50%;
+}
+
+a.card {
+  color: #282c34 !important;
+}
+
+.card-title {
+  border-radius: 0.25rem !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
