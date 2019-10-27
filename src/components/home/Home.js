@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 class Home extends React.Component {
   state = {
     questions: [],
-    showing: ""
+    showing: "",
+    isAnswered: false
   };
   // filterization by authed user
   showUnansweredQuestions = () => {
@@ -25,7 +26,9 @@ class Home extends React.Component {
     templist.forEach(key => {
       temp.push(questions[key]);
     });
-    this.setState({ questions: temp, showing: "Unanswered Questions" });
+
+    this.sortAndSave(temp);
+    this.setState({ showing: "Unanswered Questions", isAnswered: false });
   };
 
   showAnsweredQuestions = () => {
@@ -44,9 +47,18 @@ class Home extends React.Component {
     templist.forEach(key => {
       temp.push(questions[key]);
     });
-    this.setState({ questions: temp, showing: "Answered Questions" });
+    this.sortAndSave(temp);
+    this.setState({ showing: "Answered Questions", isAnswered: true });
   };
   //End showAnsweredQuestions
+
+  sortAndSave = list => {
+    const sortedList = list.sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+
+    this.setState({ questions: sortedList });
+  };
 
   componentDidMount() {
     this.showAnsweredQuestions();
@@ -77,6 +89,7 @@ class Home extends React.Component {
           <QuestionList
             questions={this.state.questions}
             users={this.props.users}
+            isAnswered={this.state.isAnswered}
           />
         </div>
       </div>

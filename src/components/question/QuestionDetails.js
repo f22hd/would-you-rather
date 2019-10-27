@@ -7,7 +7,8 @@ import QuestionDetailsForm from "./QuestionDetailsForm";
 
 class QuestionDetails extends React.Component {
   state = {
-    toHome: false
+    toHome: false,
+    questionId: ""
   };
 
   onSubmit = optionKey => {
@@ -26,13 +27,22 @@ class QuestionDetails extends React.Component {
     // add to user answers
     this.props.dispatch(addUserAnswer(toStore));
 
-    this.setState({ toHome: true });
+    this.setState({ toHome: true, questionId });
   };
 
   render() {
+    const { toHome, questionId } = this.state;
+    const { toLogin } = this.props;
+    if (toHome) {
+      return <Redirect to={`/vote/${questionId}`} />;
+    }
+
+    if (toLogin) {
+      return <Redirect to={`/login`} />;
+    }
+
     return (
       <div className="row justify-content-center">
-        {this.state.toHome === true && <Redirect to="/" />}
         <div className="col-10">
           {this.props.questionInfo && this.props.questionAuthorDetails ? (
             <QuestionDetailsForm
@@ -51,11 +61,22 @@ class QuestionDetails extends React.Component {
 
 function mapToState({ authedUser, questions, users }, props) {
   const { id } = props.match.params;
-  return {
-    authedUser,
-    id,
-    questionInfo: questions[id],
-    questionAuthorDetails: users ? users[questions[id].author] : null
-  };
+
+  if (Object.keys(users).length > 0 && Object.keys(questions).length > 0) {
+    return {
+      authedUser,
+      id,
+      questionInfo: questions[id],
+      questionAuthorDetails: users ? users[questions[id].author] : null
+    };
+  } else {
+    return {
+      authedUser,
+      id,
+      questionInfo: {},
+      questionAuthorDetails: {},
+      toLogin: true
+    };
+  }
 }
 export default connect(mapToState)(QuestionDetails);

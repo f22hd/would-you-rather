@@ -21,11 +21,6 @@ class Header extends React.Component {
                 <li>
                   <Link to="/leaderboard">Leaderboard</Link>
                 </li>
-                <li>
-                  <Link to="/question/6ni6ok3ym7mf1p33lnez">
-                    Test Question Deails
-                  </Link>
-                </li>
 
                 <li className="mx-3">
                   <small className="d-inline-block">

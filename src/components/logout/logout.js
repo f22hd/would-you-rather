@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import { removeAuthedUser } from "../../store/actions/authedUser.action";
 
 class Logout extends React.Component {
-  componentWillUnmount() {
+  componentDidMount() {
     this.props.dispatch(removeAuthedUser());
   }
 

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { saveQuestion } from "../../store/actions/questions.action";
 import { generateUID } from "../../utils/_DATA";
+import { Redirect } from "react-router-dom";
 
 class AddQuestion extends React.Component {
   state = {
@@ -17,27 +18,23 @@ class AddQuestion extends React.Component {
         text: ""
       },
       timestamp: null
-    }
+    },
+    toHome: false
   };
 
   submit = e => {
     e.preventDefault();
     // save question details
     let { question } = this.state;
+
     // add unique id to the question
     question.id = generateUID();
     question.author = this.props.authedUser;
+    console.log("to send", question);
 
     this.props.dispatch(saveQuestion(question));
-
-    //clear
-    this.setState(currentState => {
-      const { question } = currentState;
-      question.optionOne.text = "";
-      question.optionTwo.text = "";
-      return question;
-    });
     //go back to homepage.
+    this.setState({ toHome: true });
   };
 
   onoptionOneChange = e => {
@@ -57,7 +54,7 @@ class AddQuestion extends React.Component {
     this.setState(currentState => {
       const { question } = currentState;
       question[key].text = value;
-      return { question };
+      return question;
     });
   };
 
@@ -68,10 +65,12 @@ class AddQuestion extends React.Component {
 
     return (
       <div className="row justify-content-center">
+        {this.state.toHome && <Redirect to="/home" />}
         <div className="col-6">
           <form onSubmit={this.submit}>
             <div className="form-group">
               <input
+                autoFocus
                 className="form-control"
                 type="text"
                 name="optionOne"

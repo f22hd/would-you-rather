@@ -6,3 +6,9 @@ export function convertObjToArray(obj) {
 
   return temp;
 }
+
+export function beutifyDate(timestamp) {
+  let createdAt = new Date();
+  createdAt.setTime(timestamp);
+  return createdAt.toDateString();
+}

@@ -11,7 +11,6 @@ export default function users(state = {}, action) {
     case ADD_USER_ANSWER:
       const { questionId, optionKey, userId } = action.userAnswer;
       const user = state[userId];
-      console.log(user);
 
       user.answers = {
         ...user.answers,
