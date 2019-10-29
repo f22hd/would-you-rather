@@ -1,6 +1,11 @@
 import React from "react";
 import * as Helper from "../../core/Helper";
 
+const options = {
+  optionOne: "optionOne",
+  optionTwo: "optionTwo"
+};
+
 export default class VoteDetails extends React.Component {
   state = {
     answerSelected: false
@@ -10,11 +15,13 @@ export default class VoteDetails extends React.Component {
     const { questionInfo, authedUserDetails } = this.props;
     if ((questionInfo, authedUserDetails)) {
       const authedUserAnswer = authedUserDetails.answers[questionInfo.id];
-      console.log(authedUserAnswer);
       this.setState({ answerSelected: authedUserAnswer });
     }
   }
   render() {
+    let isAnsweredFirstOption =
+      this.state.answerSelected === options.optionOne ? true : false;
+
     return (
       <div className="card my-2">
         <div className="card-title text-left bg-light p-2">
@@ -37,12 +44,7 @@ export default class VoteDetails extends React.Component {
 
               {/* first option */}
               <h6
-                className={
-                  this.state.answerSelected === "optionOne"
-                    ? "text-primary"
-                    : ""
-                }
-                className="my-3"
+                className={isAnsweredFirstOption ? "text-primary my-3" : "my-3"}
               >
                 {this.props.questionInfo.optionOne.text}
               </h6>
@@ -60,11 +62,8 @@ export default class VoteDetails extends React.Component {
               {/* second option */}
               <h6
                 className={
-                  this.state.answerSelected === "optionTwo"
-                    ? "text-primary "
-                    : ""
+                  !isAnsweredFirstOption ? "text-primary my-3" : " my-3"
                 }
-                className="my-3"
               >
                 {this.props.questionInfo.optionTwo.text}
               </h6>

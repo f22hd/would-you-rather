@@ -12,7 +12,6 @@ import LeaderBoard from "./leaderboard/LeaderBoard";
 import { connect } from "react-redux";
 import { handleInitialData } from "../store/actions/shared.action";
 import logout from "./logout/logout";
-import VotePage from "./vote/votePage";
 
 class App extends React.Component {
   componentDidMount() {
@@ -34,7 +33,6 @@ class App extends React.Component {
                 <Route path="/add" component={AddQuestion} />
                 <Route path="/leaderboard" component={LeaderBoard} />
                 <Route path="/question/:id" component={QuestionDetails} />
-                <Route path="/vote/:id" exact component={VotePage} />
                 <Route path="/logout" component={logout} />
 
                 <Route component={NotFound} />

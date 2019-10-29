@@ -15,7 +15,6 @@ class QuestionList extends React.Component {
               key={index}
               questionInfo={q}
               questionAuthorDetails={this.getUserInfo(q.author)}
-              isAnswered={this.props.isAnswered}
             />
           ))
         ) : (

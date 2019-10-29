@@ -4,11 +4,13 @@ import { addAnswer } from "../../store/actions/questions.action";
 import { addUserAnswer } from "../../store/actions/users.action";
 import { Redirect } from "react-router-dom";
 import QuestionDetailsForm from "./QuestionDetailsForm";
+import VoteDetails from "../vote/voteDetails";
 
 class QuestionDetails extends React.Component {
   state = {
     toHome: false,
-    questionId: ""
+    questionId: "",
+    isAnswered: false
   };
 
   onSubmit = optionKey => {
@@ -31,8 +33,16 @@ class QuestionDetails extends React.Component {
   };
 
   render() {
-    const { toHome, questionId } = this.state;
-    const { toLogin } = this.props;
+    const {
+      toHome,
+      toLogin,
+      questionId,
+      authedUserDetails,
+      questionInfo,
+      isAnswered,
+      questionAuthorDetails
+    } = this.props;
+
     if (toHome) {
       return <Redirect to={`/vote/${questionId}`} />;
     }
@@ -44,14 +54,18 @@ class QuestionDetails extends React.Component {
     return (
       <div className="row justify-content-center">
         <div className="col-10">
-          {this.props.questionInfo && this.props.questionAuthorDetails ? (
+          {questionInfo && questionAuthorDetails && !isAnswered ? (
             <QuestionDetailsForm
-              questionInfo={this.props.questionInfo}
-              questionAuthorDetails={this.props.questionAuthorDetails}
+              questionInfo={questionInfo}
+              questionAuthorDetails={questionAuthorDetails}
               submit={this.onSubmit}
             />
           ) : (
-            <p className="my-5">We couldn't find the question.</p>
+            <VoteDetails
+              questionInfo={questionInfo}
+              authedUserDetails={authedUserDetails}
+              questionAuthorDetails={questionAuthorDetails}
+            />
           )}
         </div>
       </div>
@@ -67,7 +81,9 @@ function mapToState({ authedUser, questions, users }, props) {
       authedUser,
       id,
       questionInfo: questions[id],
-      questionAuthorDetails: users ? users[questions[id].author] : null
+      questionAuthorDetails: users ? users[questions[id].author] : null,
+      authedUserDetails: users[authedUser],
+      isAnswered: users[authedUser].answers[id] ? true : false
     };
   } else {
     return {
@@ -75,7 +91,9 @@ function mapToState({ authedUser, questions, users }, props) {
       id,
       questionInfo: {},
       questionAuthorDetails: {},
-      toLogin: true
+      toLogin: true,
+      authedUserDetails: {},
+      isAnswered: false
     };
   }
 }

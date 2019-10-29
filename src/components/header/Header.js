@@ -45,17 +45,6 @@ class Header extends React.Component {
           </ul>
         </nav>
       </header>
-      /*
-              To DO:
-              * check if user is not on login page and doesn't have authed user ,
-              should redirect him to login page.
-              otherwise , nothing to do.
-              // <div>
-              //   {!this.props.isLoggedIn && isNotInLoginPage & (
-
-              //   )}
-              // </div>
-              */
     );
   }
 }

@@ -6,11 +6,7 @@ class QuestionListItem extends React.Component {
   render() {
     return (
       <Link
-        to={
-          this.props.isAnswered
-            ? `/vote/${this.props.questionInfo.id}`
-            : `/question/${this.props.questionInfo.id}`
-        }
+        to={`/question/${this.props.questionInfo.id}`}
         className="card my-2 "
       >
         <div className="card-title text-left bg-light p-2">

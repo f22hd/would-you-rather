@@ -52,16 +52,12 @@ class Home extends React.Component {
   // filterization by authed user
   showUnansweredQuestions = () => {
     const result = this.getQuestions(false);
-    console.log(result);
-
     this.sortAndSave(result);
     this.setState({ showing: "Unanswered Questions", isAnswered: false });
   };
 
   showAnsweredQuestions = () => {
     const result = this.getQuestions(true);
-    console.log(result);
-
     this.sortAndSave(result);
     this.setState({ showing: "Answered Questions", isAnswered: true });
   };
