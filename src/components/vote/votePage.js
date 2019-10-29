@@ -15,6 +15,7 @@ class VotePage extends React.Component {
               <VoteDetails
                 questionInfo={this.props.questionInfo}
                 questionAuthorDetails={this.props.questionAuthorDetails}
+                authedUserDetails={this.props.authedUserDetails}
               />
             </div>
           ) : (
@@ -25,7 +26,7 @@ class VotePage extends React.Component {
     );
   }
 }
-function mapToState({ questions, users }, props) {
+function mapToState({ questions, users, authedUser }, props) {
   const { id: questionId } = props.match.params;
 
   if (Object.keys(questions).length > 0 && Object.keys(users).length > 0) {
@@ -36,12 +37,14 @@ function mapToState({ questions, users }, props) {
       : {};
     return {
       questionInfo,
-      questionAuthorDetails
+      questionAuthorDetails,
+      authedUserDetails: users[authedUser]
     };
   } else {
     return {
       questionInfo: {},
-      questionAuthorDetails: {}
+      questionAuthorDetails: {},
+      authedUserDetails: {}
     };
   }
 }

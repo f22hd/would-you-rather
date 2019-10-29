@@ -8,46 +8,61 @@ class Home extends React.Component {
     showing: "",
     isAnswered: false
   };
+
+  /**
+   * params: question object
+   * return : boolean
+   */
+  haveVotesOnQuestion = question => {
+    const { authedUser } = this.props;
+    const resOpt1 = question.optionOne.votes.find(v => v === authedUser);
+    const resOpt2 = question.optionTwo.votes.find(v => v === authedUser);
+    return resOpt1 || resOpt2;
+  };
+  /**
+   * params: array : questions list
+   * return : boolean
+   */
+  hasVotes = list => {
+    const resultList = Object.keys(list).filter(q => {
+      return this.hasVotesOnQuestion(list[q]);
+    });
+
+    return resultList.length > 0;
+  };
+
+  getQuestions = (isAnswered = true) => {
+    const { questions } = this.props;
+
+    let questionArr = [];
+    Object.keys(questions).forEach(q => {
+      const res = this.haveVotesOnQuestion(questions[q]);
+      if (isAnswered && res) {
+        // has votes , add the question to array.
+        questionArr.push(questions[q]);
+      } else if (!isAnswered && !res) {
+        // doesn't have answer on this question
+        questionArr.push(questions[q]);
+      }
+    });
+
+    return questionArr;
+  };
+
   // filterization by authed user
   showUnansweredQuestions = () => {
-    const { questions, authedUser } = this.props;
-    const templist = Object.keys(this.props.questions).filter(q => {
-      const resOpt1 = questions[q].optionOne.votes.find(
-        vote => vote === authedUser
-      );
-      const resOpt2 = questions[q].optionTwo.votes.find(
-        vote => vote === this.props.authedUser
-      );
+    const result = this.getQuestions(false);
+    console.log(result);
 
-      return !resOpt1 || !resOpt2;
-    });
-
-    let temp = [];
-    templist.forEach(key => {
-      temp.push(questions[key]);
-    });
-
-    this.sortAndSave(temp);
+    this.sortAndSave(result);
     this.setState({ showing: "Unanswered Questions", isAnswered: false });
   };
 
   showAnsweredQuestions = () => {
-    const { questions, authedUser } = this.props;
-    const templist = Object.keys(this.props.questions).filter(q => {
-      const resOpt1 = questions[q].optionOne.votes.find(
-        vote => vote === authedUser
-      );
-      const resOpt2 = questions[q].optionTwo.votes.find(
-        vote => vote === this.props.authedUser
-      );
+    const result = this.getQuestions(true);
+    console.log(result);
 
-      return resOpt1 || resOpt2;
-    });
-    let temp = [];
-    templist.forEach(key => {
-      temp.push(questions[key]);
-    });
-    this.sortAndSave(temp);
+    this.sortAndSave(result);
     this.setState({ showing: "Answered Questions", isAnswered: true });
   };
   //End showAnsweredQuestions

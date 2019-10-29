@@ -2,6 +2,18 @@ import React from "react";
 import * as Helper from "../../core/Helper";
 
 export default class VoteDetails extends React.Component {
+  state = {
+    answerSelected: false
+  };
+
+  componentDidMount() {
+    const { questionInfo, authedUserDetails } = this.props;
+    if ((questionInfo, authedUserDetails)) {
+      const authedUserAnswer = authedUserDetails.answers[questionInfo.id];
+      console.log(authedUserAnswer);
+      this.setState({ answerSelected: authedUserAnswer });
+    }
+  }
   render() {
     return (
       <div className="card my-2">
@@ -24,7 +36,16 @@ export default class VoteDetails extends React.Component {
               <h5 className="text-black">Results</h5>
 
               {/* first option */}
-              <h6>{this.props.questionInfo.optionOne.text}</h6>
+              <h6
+                className={
+                  this.state.answerSelected === "optionOne"
+                    ? "text-primary"
+                    : ""
+                }
+                className="my-3"
+              >
+                {this.props.questionInfo.optionOne.text}
+              </h6>
               <div className="w-100">
                 <span className="px-1">
                   {this.props.questionInfo.optionOne.votes.length}
@@ -37,7 +58,16 @@ export default class VoteDetails extends React.Component {
               </div>
 
               {/* second option */}
-              <h6>{this.props.questionInfo.optionTwo.text}</h6>
+              <h6
+                className={
+                  this.state.answerSelected === "optionTwo"
+                    ? "text-primary "
+                    : ""
+                }
+                className="my-3"
+              >
+                {this.props.questionInfo.optionTwo.text}
+              </h6>
               <div className="w-100">
                 <span className="px-1">
                   {this.props.questionInfo.optionTwo.votes.length}

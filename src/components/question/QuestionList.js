@@ -9,14 +9,20 @@ class QuestionList extends React.Component {
   render() {
     return (
       <div>
-        {this.props.questions.map((q, index) => (
-          <QuestionListItem
-            key={index}
-            questionInfo={q}
-            questionAuthorDetails={this.getUserInfo(q.author)}
-            isAnswered={this.props.isAnswered}
-          />
-        ))}
+        {this.props.questions.length > 0 ? (
+          this.props.questions.map((q, index) => (
+            <QuestionListItem
+              key={index}
+              questionInfo={q}
+              questionAuthorDetails={this.getUserInfo(q.author)}
+              isAnswered={this.props.isAnswered}
+            />
+          ))
+        ) : (
+          <h4 className="text-center text-primary mt-5">
+            Great, you are voted all questions. Thanks
+          </h4>
+        )}
       </div>
     );
   }

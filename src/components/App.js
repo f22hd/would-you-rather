@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Login from "./login/Login";
@@ -33,10 +33,10 @@ class App extends React.Component {
                 <Route path="/home" component={Home} />
                 <Route path="/add" component={AddQuestion} />
                 <Route path="/leaderboard" component={LeaderBoard} />
-                <Route path="/question/:id" exact component={QuestionDetails} />
+                <Route path="/question/:id" component={QuestionDetails} />
                 <Route path="/vote/:id" exact component={VotePage} />
-
                 <Route path="/logout" component={logout} />
+
                 <Route component={NotFound} />
               </Switch>
             </div>

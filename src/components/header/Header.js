@@ -40,7 +40,7 @@ class Header extends React.Component {
                 </li>
               </div>
             ) : (
-              <Redirect to="/login" />
+              <Redirect to="/not-found" />
             )}
           </ul>
         </nav>
