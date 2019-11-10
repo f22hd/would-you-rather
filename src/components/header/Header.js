@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Header extends React.Component {
@@ -10,7 +10,7 @@ class Header extends React.Component {
       <header className="App-header">
         <nav>
           <ul>
-            {this.props.isLoggedIn ? (
+            {this.props.isLoggedIn && (
               <div>
                 <li>
                   <Link to="/home">Home</Link>
@@ -39,8 +39,6 @@ class Header extends React.Component {
                   <Link to="/logout">Logout</Link>
                 </li>
               </div>
-            ) : (
-              <Redirect to="/not-found" />
             )}
           </ul>
         </nav>
