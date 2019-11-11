@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { addAnswer } from "../../store/actions/questions.action";
 import { addUserAnswer } from "../../store/actions/users.action";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import QuestionDetailsForm from "./QuestionDetailsForm";
 import VoteDetails from "../vote/voteDetails";
-
 class QuestionDetails extends React.Component {
   state = {
     toHome: false,
@@ -34,20 +33,18 @@ class QuestionDetails extends React.Component {
 
   render() {
     const {
-      toHome,
       toLogin,
-      questionId,
       authedUserDetails,
       questionInfo,
       isAnswered,
       questionAuthorDetails
     } = this.props;
 
-    if (toHome) {
-      return <Redirect to={`/vote/${questionId}`} />;
-    }
-
     if (toLogin) {
+      const path = `/question/${this.props.id}`;
+      console.log("path", path);
+
+      this.props.history.push(path);
       return <Redirect to={`/login`} />;
     }
 
@@ -75,7 +72,7 @@ class QuestionDetails extends React.Component {
 
 function mapToState({ authedUser, questions, users }, props) {
   const { id } = props.match.params;
-
+  
   if (Object.keys(users).length > 0 && Object.keys(questions).length > 0) {
     return {
       authedUser,
@@ -97,4 +94,4 @@ function mapToState({ authedUser, questions, users }, props) {
     };
   }
 }
-export default connect(mapToState)(QuestionDetails);
+export default withRouter(connect(mapToState)(QuestionDetails));

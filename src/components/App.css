@@ -98,3 +98,8 @@ a.card {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
+
+.btn-outline {
+  background-color: white !important;
+  color: #444 !important;
+}

@@ -72,7 +72,7 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.showAnsweredQuestions();
+    this.showUnansweredQuestions();
   }
 
   render() {
@@ -80,14 +80,14 @@ class Home extends React.Component {
       <div className="row justify-content-center">
         <div className="col-8 d-flex justify-content-around">
           <button
-            className="btn btn-clear"
+            className="btn btn-clear btn-outline"
             onClick={this.showUnansweredQuestions}
           >
             UnAnswered Questions
           </button>
           <button
             type="button"
-            className="btn btn-clear"
+            className="btn btn-clear btn-outline"
             onClick={this.showAnsweredQuestions}
           >
             Answered Questions
@@ -108,7 +108,7 @@ class Home extends React.Component {
   }
 }
 
-function mapToState({ users, questions, authedUser }) {
+function mapToState({ users, questions, authedUser }, props) {
   return {
     users,
     questions,

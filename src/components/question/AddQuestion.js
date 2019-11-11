@@ -30,7 +30,6 @@ class AddQuestion extends React.Component {
     // add unique id to the question
     question.id = generateUID();
     question.author = this.props.authedUser;
-    console.log("to send", question);
 
     this.props.dispatch(saveQuestion(question));
     //go back to homepage.

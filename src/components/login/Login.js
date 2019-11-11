@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import * as Helper from "../../core/Helper";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../../store/actions/authedUser.action";
@@ -45,6 +44,14 @@ class Login extends React.Component {
     });
   };
 
+  getNextPage = () => {
+    if (this.props.history.length > 0) {
+      this.props.history.goBack();
+    } else {
+      this.props.history.push("/home");
+    }
+  };
+
   render() {
     return (
       <div className="row justify-content-center">
@@ -78,7 +85,8 @@ class Login extends React.Component {
           )}
         </div>
 
-        {this.props.isLoggedIn && <Redirect to="/home" />}
+        {/* redirection */}
+        {this.props.isLoggedIn && this.getNextPage()}
       </div>
     );
     // end return
